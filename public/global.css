@@ -1,0 +1,4 @@
+html[hide-home='true'][page='home'] main,
+html[hide-home='true'][page='home'] footer {
+  display: none !important;
+}
