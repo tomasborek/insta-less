@@ -7,9 +7,16 @@
     "32": "icons/icon-light-32.svg"
   },
   "action": {
-    "default_icon": "icons/icon-light-32.svg",
     "default_title": "Insta-less",
-    "default_popup": "./popup/index.html"
+    "default_popup": "./popup/index.html",
+    "default_icon": "icons/icon-light-32.svg",
+    "theme_icons": [
+      {
+        "light": "icons/icon-light-32.svg",
+        "dark": "icons/icon-dark-32.svg",
+        "size": 32
+      }
+    ]
   },
   "permissions": ["storage", "scripting"],
   "content_scripts": [
