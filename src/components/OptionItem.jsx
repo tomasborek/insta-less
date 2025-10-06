@@ -2,9 +2,9 @@ import { createEffect, createResource, createSignal } from 'solid-js';
 import { loadOptions, updateOptions } from '../options';
 import { Switch } from './Switch';
 
-export const OptionItem = ({ label, id }) => {
+export const OptionItem = ({ label, id, defaultValue = false }) => {
   const [loadedOptions] = createResource(loadOptions);
-  const [value, setValue] = createSignal(false);
+  const [value, setValue] = createSignal(defaultValue);
 
   createEffect(() => {
     const loadedValue = loadedOptions()?.get(id) ?? false;
@@ -18,7 +18,7 @@ export const OptionItem = ({ label, id }) => {
 
   return (
     <div class="flex items-center gap-4 justify-between">
-      <p>{label}</p>
+      {label && <p>{label}</p>}
       <Switch onChange={handleChange} value={value} />
     </div>
   );

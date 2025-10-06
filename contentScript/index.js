@@ -2,6 +2,11 @@ const HTML = document.documentElement;
 
 const cache = {};
 let url = '';
+
+const DEFAULT_OPTIONS = {
+  'global-on': 'true',
+};
+
 /**
  * As the script runs on document_start, the `main` tag is not yet rendered on the page during the content_script run.
  * We set the `main` global state on `DOMContentLoaded` event listener.
@@ -43,7 +48,7 @@ const REDIRECTS = {
     /**
      * We check and apply cache first, because storage.get is async
      */
-    if (Object.entries(cache).length) {
+    if (Object.entries({ ...DEFAULT_OPTIONS, ...cache }).length) {
       for (const [key, value] of Object.entries(cache)) {
         HTML.setAttribute(key, value.toString());
       }

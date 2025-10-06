@@ -1,4 +1,4 @@
-html[hide-home='true'][page='home'] main,
-html[hide-home='true'][page='home'] footer {
+html[global-on='true'][hide-home='true'][page='home'] main,
+html[global-on='true'][hide-home='true'][page='home'] footer {
   display: none !important;
 }
