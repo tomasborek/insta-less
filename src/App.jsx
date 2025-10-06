@@ -13,6 +13,9 @@ const App = () => {
           <OptionItem label="Redirect to DMs" id="redirect-dms" />
         </div>
       </div>
+      <footer className="font-xs border-t-[1px] border-gray-200 text-gray-500 p-2 text-center bg-gray-100">
+        <p>v0.2.0</p>
+      </footer>
     </div>
   );
 };
