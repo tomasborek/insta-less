@@ -7,11 +7,13 @@ const DEFAULT_OPTIONS = {
   'global-on': 'true',
 };
 
+const ELEMENT_TO_SPY_ON_SELECTOR = 'body';
+
 /**
- * As the script runs on document_start, the `main` tag is not yet rendered on the page during the content_script run.
- * We set the `main` global state on `DOMContentLoaded` event listener.
+ * Element to spy on is used to detect navigation changes
  */
-let main = null;
+const getElementToSpyOn = () =>
+  document.querySelector(ELEMENT_TO_SPY_ON_SELECTOR);
 
 const PAGE_REGEXES = {
   home: /^https:\/\/(www\.)?instagram\.com\/?$/,
@@ -70,9 +72,6 @@ const REDIRECTS = {
     }
   }
 
-  /**
-   * On `main` change checks if the `url` has changed and if so, updates the state, reapplies options and re-attaches the observer to the new `main` element.
-   */
   const observer = new MutationObserver(() => {
     const newUrl = window.location.href;
     if (newUrl === url) {
@@ -80,32 +79,23 @@ const REDIRECTS = {
     }
     url = newUrl;
     setPage();
-    const newMain = document.querySelector('main');
-    if (newMain && newMain !== main) {
-      observer.disconnect();
-      observer.observe(newMain, { childList: true });
-    }
+    const newElementToSpyOn = getElementToSpyOn();
+    observer.disconnect();
+    observer.observe(newElementToSpyOn, { childList: true });
   });
 
   /**
    * Without the event listener, the `main` element is null
    */
   document.addEventListener('DOMContentLoaded', async () => {
-    main = document.querySelector('main');
-    if (!main) {
-      await new Promise((res, rej) => {
-        setTimeout(() => {
-          main = document.querySelector('main');
-          if (!main) {
-            console.error('<main/> not found, not able to detect navigation');
-            rej(false);
-          }
-          res(true);
-        }, 1000);
-      });
+    let elementToSpyOn = getElementToSpyOn();
+    if (!elementToSpyOn) {
+      console.error(
+        'element to spy on not found, not able to detect navigation'
+      );
       return;
     }
-    observer.observe(main, { childList: true });
+    observer.observe(elementToSpyOn, { childList: true });
   });
 
   browser.storage.onChanged.addListener(() => {
