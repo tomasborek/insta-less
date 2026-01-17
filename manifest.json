@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Insta-less",
   "description": "Allows removing the homepage and redirecting directly to DMs on the instagram web interface. There will be more features to come.",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "icons": {
     "32": "icons/icon-light-32.svg"
   },
@@ -21,9 +21,9 @@
   "permissions": ["storage", "scripting"],
   "content_scripts": [
     {
-      "matches": ["*://*.instagram.com/*"],
-      "js": ["./contentScript/index.js"],
-      "css": ["./public/global.css"],
+      "matches": ["*://*.instagram.com/*", "*://instagram.com/*"],
+      "js": ["scripts/contentScript.js"],
+      "css": ["public/global.css"],
       "run_at": "document_start"
     }
   ],

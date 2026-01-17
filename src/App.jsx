@@ -1,4 +1,5 @@
 import { OptionItem } from './components/OptionItem';
+import { config } from './config';
 
 const App = () => {
   return (
@@ -14,7 +15,7 @@ const App = () => {
         </div>
       </div>
       <footer className="font-xs border-t-[1px] border-gray-200 text-gray-500 p-2 text-center bg-gray-100">
-        <p>v0.2.1</p>
+        <p>v{config.version}</p>
       </footer>
     </div>
   );
